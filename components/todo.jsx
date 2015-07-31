@@ -2,26 +2,29 @@ var React = require('react');
 
 module.exports = React.createClass({
   // -- States & Properties
+  propTypes: {
+    data: React.PropTypes.object
+  },
+
   getInitialState: function() {
     return ({
-      value     : this.props.todo.name,
-      completed : this.props.todo.completed,
-      editing   : false
+      data      : this.props.data,
+      editing   : false,
+      value     : this.props.data.name,
     })
   },
 
   // -- Events
-  onToggle: function(event) {
-    this.props.todo.completed = !this.props.todo.completed,
-    this.setState({ completed: this.props.todo.completed });
+  onToggle: function() {
+    this.state.data.completed = !this.state.data.completed
   },
 
-  onEdit: function(event) {
+  onEdit: function() {
     this.setState({ editing: true });
   },
 
-  onDestroy: function(event) {
-    this.props.todo.destroy()
+  onDestroy: function() {
+    this.state.data.destroy()
   },
 
   onFieldKeyDown: function(event) {
@@ -35,24 +38,20 @@ module.exports = React.createClass({
   },
 
   onSubmit: function(event) {
-    this.props.todo.name = this.refs.field.getDOMNode().value
+    this.state.data.name = this.refs.field.getDOMNode().value
   },
 
   // -- Render
   render: function() {
-    className  = ''
-    if (this.props.todo.completed) {
-      className += ' completed'
-    }
-    if (this.state.editing) {
-      className += ' editing'
-    }
+    var className = '';
+    if (this.state.data.completed) { className += ' completed' }
+    if (this.state.editing) { className += ' editing' }
 
     return (
       <li className={className}>
         <div className='view'>
           <input className='toggle' type='checkbox'
-            checked={this.props.todo.completed}
+            checked={this.state.data.completed}
             onChange={this.onToggle} />
           <label onDoubleClick={this.onEdit}>{this.state.value}</label>
           <button className='destroy' onClick={this.onDestroy}></button>

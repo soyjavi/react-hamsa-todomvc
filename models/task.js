@@ -1,3 +1,4 @@
+var Hamsa = require("hamsa/dist/hamsa");
 var Task;
 
 module.exports = Task = (function(_super) {
@@ -20,7 +21,7 @@ module.exports = Task = (function(_super) {
     });
   };
 
-  Task.uncompleted = function() {
+  Task.active = function() {
     return this.find(function(instance) {
       if (!instance.completed) { return instance; }
     });

@@ -1,12 +1,10 @@
 // -- Dependencies
 var React     = require('react');
 var SPARouter = require('spa-router');
-// -- Components
 var Header    = require('./components/header');
 var Footer    = require('./components/footer');
 var Todo      = require('./components/todo');
-// -- Model
-var Model      = require('./models/task');
+var Model     = require('./models/task');
 
 var App = React.createClass({
   // -- States & Properties
@@ -17,11 +15,12 @@ var App = React.createClass({
   // -- Lifecycle
   componentDidMount: function() {
     Model.observe(function(state) {
-      this.setState({ todos: Model.find() });
+      this.setState({ pending : Model.active().length });
     }.bind(this));
+
     SPARouter.listen({
       '/'         : this.setState.bind(this, { context: 'find' }),
-      '/active'   : this.setState.bind(this, { context: 'uncompleted' }),
+      '/active'   : this.setState.bind(this, { context: 'active' }),
       '/completed': this.setState.bind(this, { context: 'completed' })
     });
     SPARouter.path('');
@@ -45,15 +44,13 @@ var App = React.createClass({
           <label htmlFor='toggle-all'>Mark all as complete</label>
           <ul className='todo-list'>
           {
-            Model[this.state.context]().map(function(todo, index) {
-              return (
-                <Todo key={todo.uid} todo={todo} />
-              );
-            }.bind(this))
+            Model[this.state.context]().map(function(todo) {
+              return ( <Todo key={todo.uid} data={todo} /> );
+            })
           }
           </ul>
         </section>
-        <Footer context={this.state.context} />
+        <Footer context={this.state.context} pending={this.state.pending}/>
       </div>
     )
   }

@@ -3,20 +3,17 @@ var Model = require('../models/task');
 
 module.exports = React.createClass({
   // -- States & Properties
-  getInitialState: function() {
-    return { uncompleted : 0 }
+  propTypes: {
+    context: React.PropTypes.string,
+    pending: React.PropTypes.number
   },
 
-  // -- Lifecycle
-  componentDidMount: function() {
-    Model.observe(function(state) {
-      this.setState({ uncompleted: Model.uncompleted().length });
-    }.bind(this));
+  getDefaultProps: function() {
+    return ({ pending: 0 });
   },
 
   // -- Events
-  onClearCompleted: function(event) {
-    event.preventDefault()
+  onClearCompleted: function() {
     var tasks = Model.completed();
     for (var i = 0, len = tasks.length; i < len; i++) {
       tasks[i].destroy();
@@ -29,13 +26,13 @@ module.exports = React.createClass({
     var context = this.props.context
     return (
       <footer className='footer'>
-        <span className='todo-count'><strong>{this.state.uncompleted}</strong> item left</span>
+        <span className='todo-count'><strong>{this.props.pending}</strong> item left</span>
         <ul className='filters'>
           <li>
             <a className={cx({selected: (context === 'find')})} href='#/'>All</a>
           </li>
           <li>
-            <a className={cx({selected: (context === 'uncompleted')})} href='#/active'>Active</a>
+            <a className={cx({selected: (context === 'active')})} href='#/active'>Active</a>
           </li>
           <li>
             <a className={cx({selected: (context === 'completed')})} href='#/completed'>Completed</a>

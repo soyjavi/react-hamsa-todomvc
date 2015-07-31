@@ -17,8 +17,8 @@ module.exports = React.createClass({
     return (
       <header className='header'>
         <h1>todos</h1>
-        <input ref='input' className='new-todo' placeholder='What needs to be done?' autofocus
-               onKeyDown={this.onKeyDown}/>
+        <input ref='input' className='new-todo' placeholder='What needs to be done?'
+               onKeyDown={this.onKeyDown} autofocus/>
       </header>
     )
   }
