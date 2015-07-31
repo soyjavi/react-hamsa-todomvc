@@ -1,0 +1,25 @@
+{
+  "name": "react-hamsa-todomvc",
+  "version": "0.7.31",
+  "description": "...labs with React",
+  "homepage": "http://soyjavi.com",
+  "author": "Javi Jimenez",
+  "dependencies" : {
+    "react"               : "^0.13.2"
+  },
+  "devDependencies": {
+    "jsx-loader"          : "*",
+    "hamsa"               : "*",
+    "spa-router"          : "*",
+    "todomvc-app-css"     : "*",
+    "todomvc-common"      : "*",
+    "webpack"             : "*",
+    "webpack-dev-server"  : "*"
+  },
+  "scripts": {
+    "start"               : "npm run build & npm run server",
+    "server"              : "webpack-dev-server --hot",
+    "build"               : "webpack",
+    "watch"               : "webpack --watch"
+  }
+}
