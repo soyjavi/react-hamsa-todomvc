@@ -1,42 +1,47 @@
-var React = require('react/addons');
-var Model = require('../models/task');
+var React = require('react');
+var Task = require('../models/task');
 
 module.exports = React.createClass({
-  // -- States & Properties
+
   propTypes: {
     context: React.PropTypes.string,
     pending: React.PropTypes.number
   },
 
   getDefaultProps: function() {
-    return ({ pending: 0 });
+    return ({ pending: 0 })
   },
 
-  // -- Events
+  getInitialState: function() {
+    return ({
+      contexts: [
+        {href: '#/'        , caption: 'All'},
+        {href: '#/active'  , caption: 'Active'},
+        {href: '#/completed', caption: 'Completed'}]
+    })
+  },
+
   onClearCompleted: function() {
-    var tasks = Model.completed();
+    var tasks = Task.completed();
     for (var i = 0, len = tasks.length; i < len; i++) {
       tasks[i].destroy();
     }
   },
 
-  // -- Render
   render: function() {
-    var cx = React.addons.classSet
-    var context = this.props.context
+    var context = this.props.context;
     return (
       <footer className='footer'>
         <span className='todo-count'><strong>{this.props.pending}</strong> item left</span>
         <ul className='filters'>
-          <li>
-            <a className={cx({selected: (context === 'find')})} href='#/'>All</a>
-          </li>
-          <li>
-            <a className={cx({selected: (context === 'active')})} href='#/active'>Active</a>
-          </li>
-          <li>
-            <a className={cx({selected: (context === 'completed')})} href='#/completed'>Completed</a>
-          </li>
+        {
+          this.state.contexts.map(function(item, index) {
+            className = item.caption.toLowerCase() == context ? 'selected' : '';
+            return (
+              <li><a className={className} href={item.href}>{item.caption}</a></li>
+            )
+          })
+        }
         </ul>
         <button className='clear-completed' onClick={this.onClearCompleted}>Clear completed</button>
       </footer>

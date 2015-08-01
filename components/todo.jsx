@@ -1,7 +1,7 @@
 var React = require('react');
 
 module.exports = React.createClass({
-  // -- States & Properties
+
   propTypes: {
     data: React.PropTypes.object
   },
@@ -14,7 +14,6 @@ module.exports = React.createClass({
     })
   },
 
-  // -- Events
   onToggle: function() {
     this.state.data.completed = !this.state.data.completed
   },
@@ -27,8 +26,9 @@ module.exports = React.createClass({
     this.state.data.destroy()
   },
 
-  onFieldKeyDown: function(event) {
+  onKeyDown: function(event) {
     if (event.keyCode === 13) {
+      this.state.data.name = event.target.value;
       this.setState({ editing: false });
     }
   },
@@ -37,11 +37,6 @@ module.exports = React.createClass({
     this.setState({ value: event.target.value });
   },
 
-  onSubmit: function(event) {
-    this.state.data.name = this.refs.field.getDOMNode().value
-  },
-
-  // -- Render
   render: function() {
     var className = '';
     if (this.state.data.completed) { className += ' completed' }
@@ -57,10 +52,8 @@ module.exports = React.createClass({
           <button className='destroy' onClick={this.onDestroy}></button>
         </div>
         <input type='text' className='edit' value={this.state.value}
-          ref='field'
-          onBlur={this.onSubmit}
           onChange={this.onChange}
-          onKeyDown={this.onFieldKeyDown} />
+          onKeyDown={this.onKeyDown} />
       </li>
     )
   }

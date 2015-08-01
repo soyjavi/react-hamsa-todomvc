@@ -1,9 +1,9 @@
 var Hamsa = require("hamsa");
 var Task;
 
-module.exports = Task = (function(_super) {
+module.exports = (function() {
 
-  _extends(Task, _super);
+  _extends(Task, Hamsa);
 
   function Task() {
     return Task.__super__.constructor.apply(this, arguments);
@@ -21,6 +21,10 @@ module.exports = Task = (function(_super) {
     });
   };
 
+  Task.all = function() {
+    return this.find();
+  }
+
   Task.active = function() {
     return this.filter(false);
   }
@@ -31,4 +35,4 @@ module.exports = Task = (function(_super) {
 
   return Task;
 
-})(Hamsa);
+})();
