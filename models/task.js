@@ -15,17 +15,19 @@ module.exports = Task = (function(_super) {
     created_at  : { type: Date, default: new Date() }
   });
 
-  Task.completed = function() {
+  Task.filter = function(completed) {
     return this.find(function(instance) {
-      if (instance.completed) { return instance; }
+      if (completed === instance.completed) { return instance; }
     });
   };
 
   Task.active = function() {
-    return this.find(function(instance) {
-      if (!instance.completed) { return instance; }
-    });
-  };
+    return this.filter(false);
+  }
+
+  Task.completed = function() {
+    return this.filter(true);
+  }
 
   return Task;
 
