@@ -1,4 +1,4 @@
-var Hamsa = require("hamsa/dist/hamsa");
+var Hamsa = require("hamsa");
 var Task;
 
 module.exports = Task = (function(_super) {
