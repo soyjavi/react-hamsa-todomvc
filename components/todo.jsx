@@ -1,60 +1,67 @@
-var React = require('react');
+import React from 'react';
 
-module.exports = React.createClass({
+class Todo extends React.Component {
 
-  propTypes: {
+  static propTypes = {
     data: React.PropTypes.object
-  },
+  };
 
-  getInitialState: function() {
-    return ({
-      data      : this.props.data,
-      editing   : false,
-      value     : this.props.data.name,
-    })
-  },
+  state = {
+    data: this.props.data,
+    editing: false,
+    value: this.props.data.name
+  };
 
-  onToggle: function() {
+  handleToggle = (event) => {
     this.state.data.completed = !this.state.data.completed
-  },
+  };
 
-  onEdit: function() {
+  handleEdit = (event) => {
     this.setState({ editing: true });
-  },
+  };
 
-  onDestroy: function() {
+  handleDestroy = (event) => {
     this.state.data.destroy()
-  },
+  };
 
-  onKeyDown: function(event) {
+  handleKeyDown = (event) => {
     if (event.keyCode === 13) {
       this.state.data.name = event.target.value;
       this.setState({ editing: false });
     }
-  },
+  };
 
-  onChange: function(event) {
+  handleChange = (event) => {
     this.setState({ value: event.target.value });
-  },
+  };
 
-  render: function() {
-    var className = '';
+  render() {
+    let className = '';
     if (this.state.data.completed) { className += ' completed' }
     if (this.state.editing) { className += ' editing' }
 
     return (
       <li className={className}>
         <div className='view'>
-          <input className='toggle' type='checkbox'
+          <input
+            className='toggle'
             checked={this.state.data.completed}
-            onChange={this.onToggle} />
-          <label onDoubleClick={this.onEdit}>{this.state.value}</label>
-          <button className='destroy' onClick={this.onDestroy}></button>
+            onChange={this.handleToggle}
+            type='checkbox'
+          />
+          <label onDoubleClick={this.handleEdit}>{this.state.value}</label>
+          <button className='destroy' onClick={this.handleDestroy}></button>
         </div>
-        <input type='text' className='edit' value={this.state.value}
-          onChange={this.onChange}
-          onKeyDown={this.onKeyDown} />
+        <input
+          className='edit'
+          onChange={this.handleChange}
+          onKeyDown={this.handleKeyDown}
+          type='text'
+          value={this.state.value}
+        />
       </li>
     )
   }
-});
+};
+
+export default Todo;

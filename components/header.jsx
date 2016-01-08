@@ -1,23 +1,29 @@
-var React = require('react');
-var Task = require('../models/task');
+import React from 'react';
+import Task from '../models/task';
 
-module.exports = React.createClass({
+class Header extends React.Component {
 
-  onKeyDown: function(event) {
+  handleKeyDown = (event) => {
     if (event.keyCode === 13) {
       event.preventDefault()
       new Task({ name: event.target.value });
       event.target.value = '';
     }
-  },
+  };
 
-  render: function() {
+  render() {
     return (
       <header className='header'>
         <h1>todos</h1>
-        <input className='new-todo' placeholder='What needs to be done?'
-               onKeyDown={this.onKeyDown} autofocus/>
+        <input
+          autofocus
+          className='new-todo'
+          onKeyDown={this.handleKeyDown}
+          placeholder='What needs to be done?'
+        />
       </header>
     )
   }
-});
+};
+
+export default Header;

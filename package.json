@@ -1,25 +1,28 @@
 {
   "name": "react-hamsa-todomvc",
-  "version": "0.7.31",
-  "description": "...labs with React",
+  "version": "2.0.0",
+  "description": "Exercise in chapter 12 of the book 'Descubre React'",
   "homepage": "http://soyjavi.com",
   "author": "Javi Jimenez",
-  "dependencies" : {
-    "react"               : "^0.13.2"
-  },
   "devDependencies": {
-    "jsx-loader"          : "*",
-    "hamsa"               : "*",
-    "spa-router"          : "*",
-    "todomvc-app-css"     : "*",
-    "todomvc-common"      : "*",
-    "webpack"             : "*",
-    "webpack-dev-server"  : "*"
+    "babel-core": "^6.1.4",
+    "babel-loader": "^6.0.1",
+    "babel-plugin-react-transform": "^1.1.1",
+    "babel-preset-es2015": "^6.1.4",
+    "babel-preset-react": "^6.1.4",
+    "babel-preset-stage-0": "^6.1.4",
+    "hamsa": "*",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
+    "spa-router": "*",
+    "todomvc-app-css": "*",
+    "todomvc-common": "*",
+    "webpack": "^1.9.10",
+    "webpack-dev-server": "*"
   },
   "scripts": {
     "start"               : "npm run build & npm run server",
     "server"              : "webpack-dev-server --hot",
-    "build"               : "webpack",
-    "watch"               : "webpack --watch"
+    "build"               : "webpack"
   }
 }

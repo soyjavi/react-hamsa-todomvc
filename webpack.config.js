@@ -1,18 +1,18 @@
-var pkg           = require('./package.json');
+var pkg = require('./package.json');
 
 module.exports = {
-  cache         : true,
-  resolve       : { extensions: ['', '.jsx', '.js'] },
-  context       : __dirname,
+  cache: true,
 
-  entry: {
-    app         : ['webpack/hot/dev-server', './app.jsx']
-  },
+  resolve: { extensions: ['', '.jsx', '.js'] },
+
+  context: __dirname,
+
+  entry: { app: ['webpack/hot/dev-server', './app.jsx'] },
 
   output: {
-    path        : './build',
-    filename    : pkg.name + '.[name].js',
-    publicPath  : '/build/'
+    path: './build',
+    filename: pkg.name + '.[name].js',
+    publicPath: '/build/'
   },
 
   devServer: {
@@ -22,6 +22,12 @@ module.exports = {
   },
 
   module: {
-    loaders     : [ { test: /\.jsx$/, loader: 'jsx-loader' } ]
+    loaders: [
+      {
+        test: /(\.js|\.jsx)$/,
+        loader: 'babel',
+        query: { presets: ['es2015', 'stage-0', 'react'] }
+      }
+    ]
   }
 };

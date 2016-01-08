@@ -1,4 +1,4 @@
-var Hamsa = require("hamsa");
+import Hamsa from 'Hamsa';
 var Task;
 
 module.exports = (function() {
@@ -10,27 +10,21 @@ module.exports = (function() {
   }
 
   Task.define({
-    name        : { type: String },
-    completed   : { type: Boolean, default: false },
-    created_at  : { type: Date, default: new Date() }
+    name: { type: String },
+    completed: { type: Boolean, default: false },
+    created_at: { type: Date, default: new Date() }
   });
-
-  Task.filter = function(completed) {
-    return this.find(function(instance) {
-      if (completed === instance.completed) { return instance; }
-    });
-  };
 
   Task.all = function() {
     return this.find();
   }
 
   Task.active = function() {
-    return this.filter(false);
+    return this.find({ completed: false });
   }
 
   Task.completed = function() {
-    return this.filter(true);
+    return this.find({ completed: true });
   }
 
   return Task;

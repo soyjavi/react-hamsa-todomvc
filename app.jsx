@@ -1,30 +1,32 @@
-var React     = require('react');
-var SPARouter = require('spa-router');
-var Header    = require('./components/header');
-var Content   = require('./components/content');
-var Footer    = require('./components/footer');
-var Model     = require('./models/task');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import SPARouter from 'spa-router';
+import Header from './components/header';
+import Content from './components/content';
+import Footer from './components/footer';
+import Model from './models/task';
 
-var App = React.createClass({
+class App extends React.Component {
 
-  getInitialState: function() {
-    return ({ todos: [], context : 'find' })
-  },
+  state = {
+    context: 'all',
+    pending: 0
+  };
 
-  componentDidMount: function() {
+  componentDidMount() {
     Model.observe(function(state) {
-      this.setState({ pending : Model.active().length });
+      this.setState({ pending: Model.active().length });
     }.bind(this));
 
     SPARouter.listen({
-      '/'         : this.setState.bind(this, { context: 'all' }),
-      '/active'   : this.setState.bind(this, { context: 'active' }),
+      '/': this.setState.bind(this, { context: 'all' }),
+      '/active': this.setState.bind(this, { context: 'active' }),
       '/completed': this.setState.bind(this, { context: 'completed' })
     });
     SPARouter.path('');
-  },
+  }
 
-  render: function() {
+  render() {
     return (
       <div>
         <Header />
@@ -33,6 +35,6 @@ var App = React.createClass({
       </div>
     )
   }
-});
+};
 
-React.render(<App />, document.getElementsByClassName('todoapp')[0]);
+ReactDOM.render(<App />, document.getElementsByClassName('todoapp')[0]);

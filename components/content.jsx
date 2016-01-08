@@ -1,23 +1,23 @@
-var React     = require('react');
-var Todo      = require('./todo');
+import React from 'react';
+import Todo from './todo';
 
-module.exports = React.createClass({
+class Content extends React.Component {
 
-  propTypes: {
-    dataSource  : React.PropTypes.array
-  },
+  static propTypes = {
+    dataSource: React.PropTypes.array
+  };
 
-  onToggleTodos: function(event) {
-    var items = this.props.dataSource;
-    for (var i = 0, len = items.length; i < len; i++) {
+  handleToggle = (event) => {
+    let items = this.props.dataSource;
+    for (let i = 0, len = items.length; i < len; i++) {
       items[i].completed = event.target.checked
     }
-  },
+  };
 
-  render: function() {
+  render() {
     return (
       <section className='main'>
-        <input className='toggle-all' type='checkbox' onClick={this.onToggleTodos} />
+        <input className='toggle-all' type='checkbox' onClick={this.handleToggle} />
         <label htmlFor='toggle-all'>Mark all as complete</label>
         <ul className='todo-list'>
         {
@@ -29,4 +29,6 @@ module.exports = React.createClass({
       </section>
     )
   }
-});
+};
+
+export default Content;
