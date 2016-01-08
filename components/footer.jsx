@@ -21,7 +21,6 @@ class Footer extends React.Component {
   };
 
   handleClearCompleted = (event) => {
-    console.log('handleClearCompleted', event);
     var tasks = Task.completed();
     for (var i = 0, len = tasks.length; i < len; i++) {
       tasks[i].destroy();
@@ -43,7 +42,12 @@ class Footer extends React.Component {
           })
         }
         </ul>
-        <button className='clear-completed' onClick={this.handleClearCompleted}>Clear completed</button>
+        <button
+          className='clear-completed'
+          onClick={this.handleClearCompleted}
+        >
+          Clear completed
+        </button>
       </footer>
     )
   }
