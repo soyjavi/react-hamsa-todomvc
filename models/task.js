@@ -20,11 +20,15 @@ module.exports = (function() {
   }
 
   Task.active = function() {
-    return this.find({ completed: false });
+    return this.find({
+      query: { completed: false }
+    });
   }
 
   Task.completed = function() {
-    return this.find({ completed: true });
+    return this.find({
+      query: { completed: true }
+    });
   }
 
   return Task;
